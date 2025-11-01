@@ -271,7 +271,8 @@
 </main>
 <footer>
     <div class="container">
-        <p>&copy; 2025 Официальный сайт F-Bank. Все права защищены.</p>
+        <p><strong>F-BANK</strong> — самый лучший банк страны.</p>
+        <p>&copy; 2025 Все права защищены.</p>
     </div>
 </footer>
 </body>
