@@ -1,6 +1,5 @@
 package com.technokratos.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.technokratos.models.RequestSignInUserDto;
 import com.technokratos.models.ResponseSignInUserDto;
