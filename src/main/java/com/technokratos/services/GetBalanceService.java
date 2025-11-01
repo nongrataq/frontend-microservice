@@ -29,6 +29,7 @@ public class GetBalanceService {
                 throw new RuntimeException("Error get balance: " +HttpResponse.code());
             }
         } catch (IOException e) {
+            
             throw new RuntimeException(e);
         }
     }

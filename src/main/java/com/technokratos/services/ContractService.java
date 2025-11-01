@@ -36,6 +36,7 @@ public class ContractService {
                 .build();
 
 
+
         try (Response httpResponse = client.newCall(request).execute()) {
             if (httpResponse.isSuccessful() && httpResponse.body() != null) {
                 String responseJson = httpResponse.body().string();

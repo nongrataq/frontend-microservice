@@ -1,6 +1,6 @@
 package com.technokratos.servlets;
 
-import com.technokratos.services.UserService;
+import com.technokratos.services.SignInService;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -13,11 +13,11 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class SignInServlet extends HttpServlet {
 
-    private UserService userService;
+    private SignInService signInService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        userService = (UserService) config.getServletContext().getAttribute("userService");
+        signInService = (SignInService) config.getServletContext().getAttribute("userService");
     }
 
     @Override
