@@ -7,13 +7,15 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Builder
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseSignUpUserDto {
+public class ResponseSignInUserDto {
+
     private boolean success;
 
-    private List<FieldErrorDto> errors;
+    private List<FieldErrorDto> fieldErrors;
 
+    private String token;
 }
