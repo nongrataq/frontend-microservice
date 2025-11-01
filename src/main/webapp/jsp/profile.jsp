@@ -220,18 +220,27 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        .header__menu {
-            list-style: none;
+        .header__links {
             display: flex;
             gap: 1rem;
             align-items: center;
-            justify-content: center;
+        }
+        .header__links a {
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: background 0.3s;
+            white-space: nowrap;
         }
         .header__menu li a {
             padding: 0.5rem 1rem;
             transition: all 0.3s ease;
             text-decoration: none;
             white-space: nowrap;
+        }
+        .info {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
         }
         footer {
             background-color: #616161;
@@ -252,21 +261,18 @@
         <div class="brand">
             <a href="${pageContext.request.contextPath}/">F-BANK</a>
         </div>
-        <ul class="header__menu">
-            <c:if test="${not empty sessionScope.email}">
-                <li><a href="${pageContext.request.contextPath}/profile" class="grey-btn main">Профиль</a></li>
-                <li><a href="${pageContext.request.contextPath}/logout" class="grey-btn secondary">Выход</a></li>
-            </c:if>
-            <c:if test="${empty sessionScope.email}">
-                <li><a href="${pageContext.request.contextPath}/sign-in" class="grey-btn main">Войти</a></li>
-                <li><a href="${pageContext.request.contextPath}/sign-up" class="grey-btn secondary">Регистрация</a></li>
-            </c:if>
-        </ul>
+        <div class="header__links">
+            <a class="grey-btn main" href="${pageContext.request.contextPath}/">Главная</a>
+            <a class="grey-btn secondary" href="${pageContext.request.contextPath}/logout">Выход</a>
+        </div>
     </div>
 </header>
 <main>
     <div class="grey-container">
-        <h1>Добро пожаловать в F-Bank</h1>
+        <h2>Ваш профиль</h2>
+        <div class="info">
+            <strong>Email:</strong> <c:out value="${email}"/>
+        </div>
     </div>
 </main>
 <footer>

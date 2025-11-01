@@ -63,7 +63,7 @@
             box-shadow: 0 6px 24px #0002;
             z-index: 2;
         }
-        .button-group button {
+        button {
             padding: 9px 22px;
             border: none;
             border-radius: 8px;
@@ -79,8 +79,8 @@
                     border 0.18s;
             position: relative;
         }
-        .button-group button:hover,
-        .button-group button:focus {
+        button:hover,
+        button:focus {
             transform: translateY(-2.5px) scale(1.03);
             box-shadow: 0 6px 14px #0002;
             z-index: 3;
@@ -92,13 +92,13 @@
         .group-grey:hover {
             border-color:#616161
         }
-        .button-group .main {
+        .main {
             background:rgba(255,255,255,0.9);
         }
-        .button-group .secondary {
+        .secondary {
             background:rgba(255,255,255,0.6);
         }
-        .button-group .extra {
+        .extra {
             background:rgba(255,255,255,0.35);
         }
         .button-group::after {
