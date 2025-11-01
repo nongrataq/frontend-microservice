@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FieldErrorDto {
-    private String message;
-    private String field;
+public class RequestSignInUserDto {
+
+    private String phone;
+
+    private String password;
 }
