@@ -63,7 +63,7 @@
             box-shadow: 0 6px 24px #0002;
             z-index: 2;
         }
-        .button-group button {
+        button {
             padding: 9px 22px;
             border: none;
             border-radius: 8px;
@@ -79,8 +79,8 @@
                     border 0.18s;
             position: relative;
         }
-        .button-group button:hover,
-        .button-group button:focus {
+        button:hover,
+        button:focus {
             transform: translateY(-2.5px) scale(1.03);
             box-shadow: 0 6px 14px #0002;
             z-index: 3;
@@ -92,36 +92,77 @@
         .group-grey:hover {
             border-color:#616161
         }
-        .button-group .main {
+        .main {
             background:rgba(255,255,255,0.9);
         }
-        .button-group .secondary {
+        .secondary {
             background:rgba(255,255,255,0.6);
         }
-        .button-group .extra {
+        .extra {
             background:rgba(255,255,255,0.35);
         }
-        .button-group::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            pointer-events:none;
-            opacity: 0;
-            border-radius: inherit;
-            transition: opacity .32s;
-            z-index:1;
+        .grey-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: Verdana, Arial, sans-serif;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 2px 6px #0002;
+            text-decoration: none;
+            transition:
+                    transform 0.22s cubic-bezier(.38,1.64,.41,1.03),
+                    box-shadow 0.2s,
+                    background 0.18s;
+            position: relative;
+            color: #222;
+            background: rgba(255,255,255,0.9);
         }
-        .group-grey:hover::after {
-            background:rgba(158,158,158,0.08);
-            opacity:1;
+        .grey-btn:hover, .grey-btn:focus {
+            transform: translateY(-2.5px) scale(1.03);
+            box-shadow: 0 6px 14px #0002;
+        }
+        .grey-btn.secondary {
+            background: rgba(255,255,255,0.6);
+            color: #616161;
+            border: 2px solid #bdbdbd;
         }
         header {
+            background: linear-gradient(90deg, #424242 0%, #616161 50%, #757575 100%);
+            box-shadow: 0 6px 20px #00000033;
+            border-bottom: 3px solid #bdbdbd;
+            padding: 0;
+        }
+        .header__container {
             display: flex;
-            width: 100%;
-            background-color: #616161;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            height: 150px;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 18px 40px;
+        }
+        .brand a {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #bdbdbd, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            text-shadow: 0 2px 8px #00000011;
+            transition: letter-spacing 0.3s;
+        }
+        .brand a:hover {
+            letter-spacing: 3px;
+        }
+        .header__links {
+            display: flex;
+            gap: 12px;
+            align-items: center;
         }
         main {
             display: flex;
@@ -176,11 +217,30 @@
         .link a:hover {
             text-decoration: underline;
         }
+        footer {
+            background-color: #616161;
+            border-top: 2px solid #404040;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+        footer p {
+            color: whitesmoke;
+            margin: 0.5rem 0;
+        }
     </style>
 </head>
 <body>
 <header>
-    <h2>F-BANK</h2>
+    <div class="header__container">
+        <div class="brand">
+            <a href="${pageContext.request.contextPath}/">F-BANK</a>
+        </div>
+        <div class="header__links">
+            <a class="grey-btn main" href="${pageContext.request.contextPath}/">Главная</a>
+            <a class="grey-btn secondary" href="${pageContext.request.contextPath}/logout">Выход</a>
+        </div>
+    </div>
 </header>
 <main>
     <div class="grey-container">
@@ -211,7 +271,10 @@
     </div>
 </main>
 <footer>
-
+    <div class="container">
+        <p><strong>F-BANK</strong> — самый лучший банк страны.</p>
+        <p>&copy; 2025 Все права защищены.</p>
+    </div>
 </footer>
 </body>
 </html>
