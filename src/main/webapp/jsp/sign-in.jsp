@@ -256,8 +256,8 @@
         </c:if>
         <form class="form" action="${pageContext.request.contextPath}/sign-in" method="post">
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" id="email" name="email" required>
+                <label for="phone">Номер телефона</label>
+                <input type="text" id="phone" name="phone" required>
             </div>
             <div class="form-group">
                 <label for="password">Пароль</label>

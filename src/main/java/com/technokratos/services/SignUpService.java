@@ -23,7 +23,7 @@ public class SignUpService {
         );
 
         Request request = new Request.Builder()
-                .url("http://localhost:8080/api/user-data/sign-in")
+                .url("http://localhost:8081/api/user-data/sign-up")
                 .post(body)
                 .build();
 

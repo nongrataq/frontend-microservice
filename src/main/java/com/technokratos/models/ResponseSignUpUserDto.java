@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResponseSignUpUserDto {
+
     private boolean success;
 
     private List<FieldErrorDto> errors;

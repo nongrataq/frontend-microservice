@@ -1,5 +1,6 @@
 package com.technokratos.servlets;
 
+import com.technokratos.models.FieldErrorDto;
 import com.technokratos.models.RequestSignUpUserDto;
 import com.technokratos.models.ResponseSignUpUserDto;
 import com.technokratos.services.SignUpService;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/sign-up")
 public class SignUpServlet extends HttpServlet {
@@ -25,6 +27,10 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        List<FieldErrorDto> errors = (List<FieldErrorDto>) session.getAttribute("errors");
+        req.setAttribute("errors", errors);
+        session.removeAttribute("errors");
         req.getRequestDispatcher("/jsp/sign-up.jsp").forward(req, resp);
     }
 
@@ -42,6 +48,8 @@ public class SignUpServlet extends HttpServlet {
                 .password(password)
                 .build()
         );
+
+        System.out.println(responseSignUpUserDto);
 
         if (responseSignUpUserDto.isSuccess()) {
             resp.sendRedirect(req.getContextPath() + "/sign-in");

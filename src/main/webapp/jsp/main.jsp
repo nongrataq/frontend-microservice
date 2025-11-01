@@ -257,10 +257,10 @@
                 <li><a href="${pageContext.request.contextPath}/profile" class="grey-btn main">Профиль</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout" class="grey-btn secondary">Выход</a></li>
             </c:if>
-            <c:if test="${empty sessionScope.email}">
+
                 <li><a href="${pageContext.request.contextPath}/sign-in" class="grey-btn main">Войти</a></li>
                 <li><a href="${pageContext.request.contextPath}/sign-up" class="grey-btn secondary">Регистрация</a></li>
-            </c:if>
+
         </ul>
     </div>
 </header>

@@ -15,7 +15,7 @@ public class ResponseSignInUserDto {
 
     private boolean success;
 
-    private List<FieldErrorDto> fieldErrors;
+    private List<FieldErrorDto> errors;
 
     private String token;
 }

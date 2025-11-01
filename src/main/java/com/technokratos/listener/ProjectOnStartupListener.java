@@ -12,11 +12,14 @@ import okhttp3.OkHttpClient;
 
 @WebListener
 public class ProjectOnStartupListener implements ServletContextListener {
+
+    private OkHttpClient client;
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext servletContext = sce.getServletContext();
 
-        OkHttpClient client = new OkHttpClient();
+        client = new OkHttpClient();
         ObjectMapper mapper = new ObjectMapper();
 
         SignUpService signUpService = new SignUpService(client, mapper);
@@ -27,5 +30,12 @@ public class ProjectOnStartupListener implements ServletContextListener {
         servletContext.setAttribute("signInService", signInService);
         servletContext.setAttribute("tokenService", tokenService);
 
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        if (client != null) {
+            client.connectionPool().evictAll();
+        }
     }
 }

@@ -36,11 +36,10 @@ public class ContractService {
                 .build();
 
 
-
         try (Response httpResponse = client.newCall(request).execute()) {
             if (httpResponse.isSuccessful() && httpResponse.body() != null) {
                 String responseJson = httpResponse.body().string();
-                return objectMapper.readValue(responseJson, new TypeReference<Map<String, Object>>() {
+                return objectMapper.readValue(responseJson, new TypeReference<>() {
                 });
             } else {
                 throw new RuntimeException("Error" + httpResponse.code());
