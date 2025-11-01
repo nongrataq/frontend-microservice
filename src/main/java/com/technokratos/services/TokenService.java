@@ -1,22 +1,20 @@
 package com.technokratos.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.technokratos.models.RequestSignInUserDto;
 import com.technokratos.models.ResponseSignInUserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import okhttp3.*;
 
 @RequiredArgsConstructor
-public class SignInService {
+public class TokenService {
 
     private final OkHttpClient client;
     private final ObjectMapper objectMapper;
 
     @SneakyThrows
-    public ResponseSignInUserDto signIn(RequestSignInUserDto requestSignInUserDto) {
-        String json = objectMapper.writeValueAsString(requestSignInUserDto);
+    public boolean isTokenAlive(String token) {
+        String json = objectMapper.writeValueAsString(token);
 
         RequestBody body = RequestBody.create(
                 MediaType.parse("application/json"),
@@ -30,7 +28,7 @@ public class SignInService {
 
         try (Response resp = client.newCall(req).execute()) {
             if (resp.isSuccessful()) {
-                return objectMapper.readValue(resp.body().string(), ResponseSignInUserDto.class);
+                return objectMapper.readValue(resp.body().string(), Boolean.class);
             } else {
                 throw new RuntimeException(resp.message());
             }

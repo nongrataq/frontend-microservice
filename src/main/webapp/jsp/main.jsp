@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>F-BANK</title>
+    <title>ВХОД</title>
     <style>
         * {
             margin: 0;
@@ -63,7 +63,7 @@
             box-shadow: 0 6px 24px #0002;
             z-index: 2;
         }
-        .button-group button {
+        button {
             padding: 9px 22px;
             border: none;
             border-radius: 8px;
@@ -79,8 +79,8 @@
                     border 0.18s;
             position: relative;
         }
-        .button-group button:hover,
-        .button-group button:focus {
+        button:hover,
+        button:focus {
             transform: translateY(-2.5px) scale(1.03);
             box-shadow: 0 6px 14px #0002;
             z-index: 3;
@@ -92,13 +92,13 @@
         .group-grey:hover {
             border-color:#616161
         }
-        .button-group .main {
+        .main {
             background:rgba(255,255,255,0.9);
         }
-        .button-group .secondary {
+        .secondary {
             background:rgba(255,255,255,0.6);
         }
-        .button-group .extra {
+        .extra {
             background:rgba(255,255,255,0.35);
         }
         .button-group::after {
@@ -125,6 +125,7 @@
         }
         main {
             display: flex;
+            height: 80%;
             width: 100%;
             background-color: #bdbdbd;
             justify-content: center;
@@ -150,6 +151,7 @@
             border: none;
             font-weight: bold;
             cursor: pointer;
+            width: 100%;
         }
         .form button:hover {
             background: #424242;
@@ -175,19 +177,103 @@
         .link a:hover {
             text-decoration: underline;
         }
+        .grey-btn {
+            display: inline-block;
+            padding: 9px 22px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: Verdana, Arial, sans-serif;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 1.5px 4px #0002;
+            text-decoration: none;
+            margin-right: 8px;
+            transition:
+                    transform 0.22s cubic-bezier(.38,1.64,.41,1.03),
+                    box-shadow 0.2s,
+                    background 0.18s,
+                    color 0.19s,
+                    border 0.18s;
+            position: relative;
+            color: #222;
+        }
+        .grey-btn:hover, .grey-btn:focus {
+            transform: translateY(-2.5px) scale(1.03);
+            box-shadow: 0 6px 14px #0002;
+            z-index: 2;
+        }
+        .brand a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #bdbdbd;
+            text-decoration: none;
+        }
+        .brand a:hover {
+            color: white;
+        }
+        .header__container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header__menu {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+        .header__menu li a {
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        footer {
+            background-color: #616161;
+            border-top: 2px solid #404040;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+        footer p {
+            color: whitesmoke;
+            margin: 0.5rem 0;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h2>F-BANK</h2>
-    </header>
-    <main>
-        <div class="grey-container">
-
+<header>
+    <div class="header__container">
+        <div class="brand">
+            <a href="${pageContext.request.contextPath}/">F-BANK</a>
         </div>
-    </main>
-    <footer>
-
-    </footer>
+        <ul class="header__menu">
+            <c:if test="${not empty sessionScope.email}">
+                <li><a href="${pageContext.request.contextPath}/profile" class="grey-btn main">Профиль</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout" class="grey-btn secondary">Выход</a></li>
+            </c:if>
+            <c:if test="${empty sessionScope.email}">
+                <li><a href="${pageContext.request.contextPath}/sign-in" class="grey-btn main">Войти</a></li>
+                <li><a href="${pageContext.request.contextPath}/sign-up" class="grey-btn secondary">Регистрация</a></li>
+            </c:if>
+        </ul>
+    </div>
+</header>
+<main>
+    <div class="grey-container">
+        <h1>Добро пожаловать в F-Bank</h1>
+    </div>
+</main>
+<footer>
+    <div class="container">
+        <p><strong>F-BANK</strong> — самый лучший банк страны.</p>
+        <p>&copy; 2025 Все права защищены.</p>
+    </div>
+</footer>
 </body>
 </html>
