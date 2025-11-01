@@ -12,7 +12,7 @@ import okhttp3.*;
 public class SignInService {
 
     private final OkHttpClient client;
-    ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     @SneakyThrows
     public ResponseSignInUserDto signIn(RequestSignInUserDto requestSignInUserDto) {
