@@ -15,6 +15,4 @@ public class ResponseSignUpUserDto {
     private boolean success;
 
     private List<FieldErrorDto> errors;
-
-    private String token;
 }
