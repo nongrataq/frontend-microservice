@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>РЕГИСТРАЦИЯ</title>
+    <title>ВХОД</title>
     <style>
         * {
             margin: 0;
@@ -184,7 +184,7 @@
 </header>
 <main>
     <div class="grey-container">
-        <h1>Регистрация</h1>
+        <h1>Вход</h1>
         <c:if test="${not empty requestScope.errors}">
             <div class="errors">
                 <c:forEach items="${requestScope.errors}" var="error">
@@ -194,11 +194,7 @@
                 </c:forEach>
             </div>
         </c:if>
-        <form class="form" action="${pageContext.request.contextPath}/sign-up" method="post">
-            <div class="form-group">
-                <label for="fio">ФИО</label>
-                <input type="text" id="fio" name="fio" required>
-            </div>
+        <form class="form" action="${pageContext.request.contextPath}/sign-in" method="post">
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" id="email" name="email" required>
@@ -207,10 +203,10 @@
                 <label for="password">Пароль</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit">Зарегистрироваться</button>
+            <button type="submit">Войти</button>
         </form>
         <div class="link">
-            Уже есть аккаунт? <a href="${pageContext.request.contextPath}/sign-in">Войти</a>
+            Нет аккаунта? <a href="${pageContext.request.contextPath}/sign-up">Зарегистрироваться</a>
         </div>
     </div>
 </main>
