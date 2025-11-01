@@ -183,42 +183,7 @@
     </header>
     <main>
         <div class="grey-container">
-            <h1>Регистрация</h1>
-            <c:if test="${not empty requestScope.errors}">
-                <div class="errors">
-                    <c:forEach items="${requestScope.errors}" var="error">
-                        <div class="error-item">
-                            <strong>${error.field}:</strong> ${error.message}
-                        </div>
-                    </c:forEach>
-                </div>
-            </c:if>
-            <form class="form" action="${pageContext.request.contextPath}/sign-up" method="post">
-                <div class="form-group">
-                    <label for="firstName">Имя</label>
-                    <input type="text" id="firstName" name="firstName" required>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Фамилия</label>
-                    <input type="text" id="lastName" name="lastName" required>
-                </div>
-                <div class="form-group">
-                    <label for="middleName">Отчество</label>
-                    <input type="text" id="middleName" name="middleName">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Пароль</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit">Зарегистрироваться</button>
-            </form>
-            <div class="link">
-                Уже есть аккаунт? <a href="${pageContext.request.contextPath}/sign-in">Войти</a>
-            </div>
+
         </div>
     </main>
     <footer>
