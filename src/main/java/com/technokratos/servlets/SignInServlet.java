@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 
 import java.io.IOException;
@@ -31,18 +32,21 @@ public class SignInServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+
         RequestSignInUserDto requestSignInUserDto = RequestSignInUserDto.builder()
                 .phone(req.getParameter("phone"))
                 .password(req.getParameter("password"))
                 .build();
 
-        ResponseSignInUserDto responseSignInUserDto = signInService.signIn(requestSignInUserDto);
+        ResponseSignInUserDto response = signInService.signIn(requestSignInUserDto);
 
-        if (!responseSignInUserDto.isSuccess()) {
-            req.getSession().setAttribute("errors", responseSignInUserDto.getErrors());
+        if (!response.isSuccess()) {
+            session.setAttribute("errors", response.getErrors());
             resp.sendRedirect(req.getContextPath() + "/sign-in");
         } else {
-            req.getSession().setAttribute("token", responseSignInUserDto.getToken());
+            session.setAttribute("token", response.getToken());
+            session.setAttribute("userId", response.getUserId());
             resp.sendRedirect(req.getContextPath() + "/profile");
         }
     }

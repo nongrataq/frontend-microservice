@@ -14,24 +14,13 @@ public class TokenService {
 
     @SneakyThrows
     public boolean isTokenAlive(String token) {
-        String json = objectMapper.writeValueAsString(token);
-
-        RequestBody body = RequestBody.create(
-                MediaType.parse("application/json"),
-                json
-        );
-
         Request req = new Request.Builder()
-                .url("http://localhost:8080/api/user-data")
-                .post(body)
+                .url("http://localhost:8080/api/user-data/tokens/validate?token=%s".formatted(token))
+                .get()
                 .build();
 
         try (Response resp = client.newCall(req).execute()) {
-            if (resp.isSuccessful()) {
-                return objectMapper.readValue(resp.body().string(), Boolean.class);
-            } else {
-                throw new RuntimeException(resp.message());
-            }
+            return resp.isSuccessful(); //200 - валидный токен, 4xx - невалидный
         }
     }
 }

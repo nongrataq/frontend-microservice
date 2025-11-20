@@ -18,13 +18,23 @@ public class TokenFilter implements Filter {
         tokenService = (TokenService) filterConfig.getServletContext().getAttribute("tokenService");
     }
 
-    // токен должен проверяться только на конкретные url
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        if (tokenService.isTokenAlive((String) request.getSession().getAttribute("token"))) {
+        String contextPath = request.getContextPath();
+        String fullPath = request.getRequestURI();
+        String path = fullPath.substring(contextPath.length());
+
+        String token = (String) request.getSession().getAttribute("token");
+
+        if (path.equals("/sign-in") || path.equals("/sign-up") || path.equals("/")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        if (token != null && tokenService.isTokenAlive(token)) {
             filterChain.doFilter(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/sign-in");

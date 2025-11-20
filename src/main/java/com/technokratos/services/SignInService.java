@@ -1,12 +1,15 @@
 package com.technokratos.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.technokratos.models.FieldErrorDto;
 import com.technokratos.models.RequestSignInUserDto;
 import com.technokratos.models.ResponseSignInUserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -33,10 +36,17 @@ public class SignInService {
 
         try (Response resp = client.newCall(req).execute()) {
             if (resp.isSuccessful()) {
-                log.info(resp.body().string());
                 return objectMapper.readValue(resp.body().string(), ResponseSignInUserDto.class);
             } else {
-                throw new RuntimeException(resp.message());
+                return ResponseSignInUserDto.builder()
+                        .success(false)
+                        .errors(List.of(
+                                FieldErrorDto.builder()
+                                        .field("system")
+                                        .message("Ошибка входа: %s".formatted(resp.code()))
+                                        .build()
+                        ))
+                        .build();
             }
         }
     }

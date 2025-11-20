@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.technokratos</groupId>
-    <artifactId>test-servlet-rest-api</artifactId>
+    <artifactId>frontend-api-agona</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>servlet-api-frontend</name>
+    <name>frontend-api-agona</name>
     <url>https://maven.apache.org</url>
 
     <properties>
@@ -27,9 +27,6 @@
             <version>${jakarta.servlet.version}</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- JSTL -->
-
 
         <dependency>
             <groupId>org.glassfish.web</groupId>
@@ -64,9 +61,7 @@
             <artifactId>okhttp</artifactId>
             <version>3.14.9</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
 
-        <!-- SLF4J API -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>

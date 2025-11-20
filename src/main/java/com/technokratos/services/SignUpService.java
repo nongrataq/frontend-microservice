@@ -1,11 +1,14 @@
 package com.technokratos.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.technokratos.models.FieldErrorDto;
 import com.technokratos.models.RequestSignUpUserDto;
 import com.technokratos.models.ResponseSignUpUserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import okhttp3.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 public class SignUpService {
@@ -23,7 +26,7 @@ public class SignUpService {
         );
 
         Request request = new Request.Builder()
-                .url("http://localhost:8081/api/user-data/sign-up")
+                .url("http://localhost:8080/api/user-data/sign-up")
                 .post(body)
                 .build();
 
@@ -31,7 +34,15 @@ public class SignUpService {
             if (response.isSuccessful()) {
                 return objectMapper.readValue(response.body().string(), ResponseSignUpUserDto.class);
             } else {
-                throw new RuntimeException(response.message());
+                return ResponseSignUpUserDto.builder()
+                        .success(false)
+                        .errors(List.of(
+                                FieldErrorDto.builder()
+                                        .field("system")
+                                        .message("Ошибка регистрации: %s".formatted(response.code()))
+                                        .build()
+                        ))
+                        .build();
             }
         }
 
