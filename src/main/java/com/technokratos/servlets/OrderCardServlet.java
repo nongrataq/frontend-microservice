@@ -30,11 +30,11 @@ public class OrderCardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
 
-        UUID cardProductId = UUID.fromString((String) req.getAttribute("cardProductId"));
+        UUID cardProductId = UUID.fromString(req.getParameter("cardProductId"));
 
         UUID userId = UUID.fromString((String) session.getAttribute("userId"));
 
-        String cardName = (String) req.getAttribute("cardName");
+        String cardName = req.getParameter("cardName");
 
         CreateCardRequest orderedCard = CreateCardRequest.builder()
                 .cardName(cardName)

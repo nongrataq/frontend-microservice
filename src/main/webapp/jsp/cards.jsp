@@ -12,15 +12,19 @@
 </head>
 <body>
 
-    !WARNING WARNING FOR YAROMIR
-    !СТРАНИЦА ГДЕ БУДУТ ВСЕ ДОСТУПНЫЕ ДЛЯ ЮЗЕРА КАРТЫ ЗА ЭТО ОТВЕЧАЕТ CardsServlet там аттрибут "cards" пробежишь по списку foreachем и отобразишь можно
+<c:forEach items="${cardProducts}" var="cardProduct">
+    <div class="card-product">
+        <img src="${cardProduct.cardImageLink}">
+        <h3>${cardProduct.cardName}</h3>
+        <p>${cardProduct.description}</p>
 
-    должна быть кнопка через
-    <form action="${pageContext.request.contextPath}/order-card" method="post">
-        <input type="hidden" name="cardProductId" value="${cardProduct.id}">
-        <input type="hidden" name="cardName" value="${cardProduct.cardName}">
-        <button type="submit">Заказать карту</button>
-    </form>
+        <form action="${pageContext.request.contextPath}/order-card" method="post">
+            <input type="hidden" name="cardProductId" value="${cardProduct.id}">
+            <input type="hidden" name="cardName" value="${cardProduct.cardName}">
+            <button type="submit">Заказать карту</button>
+        </form>
+    </div>
+</c:forEach>
 
 </body>
 

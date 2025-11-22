@@ -1,12 +1,17 @@
 package com.technokratos.filters;
 
+import com.technokratos.models.BlockType;
 import com.technokratos.services.TokenService;
+import com.technokratos.services.UserRestrictionsService;
+import com.technokratos.util.ServletUtil;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebFilter("/*")
 public class TokenFilter implements Filter {
@@ -23,11 +28,13 @@ public class TokenFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        HttpSession session = request.getSession(false);
+
         String contextPath = request.getContextPath();
         String fullPath = request.getRequestURI();
         String path = fullPath.substring(contextPath.length());
 
-        String token = (String) request.getSession().getAttribute("token");
+        String token = (String) session.getAttribute("token");
 
         if (path.equals("/sign-in") || path.equals("/sign-up") || path.equals("/")) {
             filterChain.doFilter(request, response);

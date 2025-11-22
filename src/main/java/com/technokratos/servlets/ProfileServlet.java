@@ -31,7 +31,9 @@ public class ProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
 
-        List<ApiResponse<CardDto>> userCards = cardService.getUserCards(ServletUtil.getUserId(session));
+        ApiResponse<List<CardDto>> userCards = cardService.getUserCards(ServletUtil.getUserId(session));
+
+        req.setAttribute("userCards", userCards);
         req.getRequestDispatcher("/jsp/profile.jsp").forward(req, resp);
     }
 }

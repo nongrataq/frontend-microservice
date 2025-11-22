@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class DocumentDto {
     private UUID id;
-    private String docType;
+    private DocType docType;
     private LocalDateTime createdDate;
     private UUID userId;
     private String userFio;

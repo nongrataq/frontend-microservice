@@ -24,18 +24,21 @@ public class CardService {
     private final String ORDER_CARD = BASE_URL + "/create-card";
     private final String GET_USER_CARDS = BASE_URL + "/users/%s";
 
-    public List<ApiResponse<CardDto>> getUserCards(UUID userId) {
 
+    @SneakyThrows
+    public ApiResponse<List<CardDto>> getUserCards(UUID userId) {
 
         Request request = new Request.Builder()
                 .get()
                 .url(GET_USER_CARDS.formatted(userId))
                 .build();
 
-        //dopisat
-
-        return null;
-
+        try (Response response = client.newCall(request).execute()) {
+            return objectMapper.readValue(
+                    response.body().string(),
+                    new TypeReference<>() {}
+            );
+        }
     }
 
     @SneakyThrows
@@ -67,7 +70,7 @@ public class CardService {
     }
 
     @SneakyThrows
-    public List<CardProductDto> getAllCardsForChoose() {
+    public ApiResponse<List<CardProductDto>> getAllCardsForChoose() {
 
         Request request = new Request.Builder()
                 .get()

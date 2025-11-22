@@ -1,5 +1,6 @@
 package com.technokratos.servlets;
 
+import com.technokratos.models.cards.ApiResponse;
 import com.technokratos.models.cards.CardProductDto;
 import com.technokratos.services.CardService;
 import jakarta.servlet.ServletConfig;
@@ -24,8 +25,8 @@ public class CardsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<CardProductDto> allCardsForChoose = cardService.getAllCardsForChoose();
-        req.setAttribute("cardProducts", allCardsForChoose);
+        ApiResponse<List<CardProductDto>> allCardsForChoose = cardService.getAllCardsForChoose();
+        req.setAttribute("cardProducts", allCardsForChoose.getData());
         req.getRequestDispatcher("/jsp/cards.jsp").forward(req, resp);
     }
 
