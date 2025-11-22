@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Доступные карты</title>
+    <title>Перевод средств</title>
     <style>
         * {
             margin: 0;
@@ -83,79 +83,56 @@
             justify-content: center;
             padding: 40px 20px;
         }
-        .profile {
-            max-width: 1200px;
+        .container {
+            max-width: 600px;
             width: 100%;
         }
-        .profile h2 {
+        .container h2 {
             font-size: 28px;
             color: #616161;
             margin-bottom: 20px;
         }
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-        }
-        .cards__card {
+        .form-block {
             background: linear-gradient(90deg,#f5f5f5 60%,#bdbdbd 100%);
             border: 3px solid #bdbdbd;
             border-radius: 14px;
             box-shadow: 0 2px 8px #0001;
-            padding: 20px;
-            transition: border-color 0.5s, box-shadow 0.3s;
-            position: relative;
+            padding: 24px;
+            margin-bottom: 24px;
         }
-        .cards__card:hover {
-            border-color: #616161;
-            box-shadow: 0 6px 24px #0002;
+        .form-group {
+            margin-bottom: 16px;
         }
-        .cards__card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            pointer-events:none;
-            opacity: 0;
-            border-radius: inherit;
-            transition: opacity .32s;
-            z-index: 1;
-        }
-        .cards__card:hover::after {
-            background: rgba(158,158,158,0.08);
-            opacity: 1;
-        }
-        .cards__card__info {
-            position: relative;
-            z-index: 2;
-        }
-        .card__image {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 12px;
-        }
-        .card__name {
-            font-size: 18px;
+        .form-group label {
+            display: block;
             font-weight: bold;
             color: #424242;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            font-size: 15px;
         }
-        .card__description {
-            font-size: 14px;
-            color: #616161;
-            margin-bottom: 16px;
-            line-height: 1.4;
-        }
-        .cards__card form {
-            position: relative;
-            z-index: 2;
-        }
-        button.grey-btn {
+        .form-group input {
             width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #bdbdbd;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: Verdana, Arial, sans-serif;
         }
-        .grey-btn.main {
-            background: rgba(255,255,255,0.9);
+        .form-group input:focus {
+            border-color: #616161;
+        }
+        .actions {
+            display: flex;
+            gap: 12px;
+        }
+        .actions form, .actions a {
+            flex: 1;
+        }
+        .actions .grey-btn {
+            width: 100%;
+            text-align: center;
         }
         footer {
             background: linear-gradient(90deg, #757575 0%, #616161 50%, #424242 100%);
@@ -187,29 +164,43 @@
     </div>
 </header>
 <main>
-    <div class="profile">
-        <h2>Доступные карты для заказа</h2>
-        <div class="cards">
-            <c:forEach items="${requestScope.cardProducts}" var="cardProduct">
-                <div class="cards__card">
-                    <div class="cards__card__info">
-                        <img class="card__image" src="${cardProduct.cardImageLink}" alt="Card image"/>
-                        <div class="card__name">${cardProduct.cardName}</div>
-                        <div class="card__description">${cardProduct.description}</div>
-                    </div>
-                    <form action="${pageContext.request.contextPath}/order-card" method="post">
-                        <input type="hidden" name="cardProductId" value="${cardProduct.id}">
-                        <input type="hidden" name="cardName" value="${cardProduct.cardName}">
-                        <button type="submit" class="grey-btn main">Заказать карту</button>
-                    </form>
+    <div class="container">
+        <h2>Перевод средств</h2>
+        <div class="form-block">
+            <form action="${pageContext.request.contextPath}/transfer-confirm" method="post">
+                <input type="hidden" name="cardId" value="${cardId}">
+
+                <div class="form-group">
+                    <label for="recipient">ФИО получателя:</label>
+                    <input type="text" id="recipient" name="recipientFio" required placeholder="Иван Иванович Иванов">
                 </div>
-            </c:forEach>
+
+                <div class="form-group">
+                    <label for="account">Номер счёта получателя:</label>
+                    <input type="text" id="account" name="recipientAccount" required placeholder="12345678901234567890">
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Сумма перевода (₽):</label>
+                    <input type="number" id="amount" name="amount" required placeholder="1000" step="0.01" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Назначение платежа:</label>
+                    <input type="text" id="description" name="description" placeholder="Оплата счёта">
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="grey-btn main">Продолжить</button>
+                    <a href="javascript:history.back()" class="grey-btn secondary">Отмена</a>
+                </div>
+            </form>
         </div>
     </div>
 </main>
 <footer>
     <div class="container">
-        <p><strong>F-BANK</strong> — откройте новую карту уже сегодня</p>
+        <p><strong>F-BANK</strong> — управление вашими картами</p>
         <p>&copy; 2025 Все права защищены</p>
     </div>
 </footer>
