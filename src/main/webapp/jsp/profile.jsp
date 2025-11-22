@@ -91,10 +91,18 @@
             max-width: 1200px;
             width: 100%;
         }
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
         .profile h2 {
             font-size: 28px;
             color: #616161;
-            margin-bottom: 20px;
+        }
+        .order-button {
+            display: inline-block;
         }
         .info {
             padding: 1rem;
@@ -204,7 +212,10 @@
 </header>
 <main>
     <div class="profile">
-        <h2>Ваш профиль</h2>
+        <div class="profile-header">
+            <h2>Ваш профиль</h2>
+            <a href="${pageContext.request.contextPath}/cards" class="grey-btn main order-button">+ Заказать новую карту</a>
+        </div>
         <div class="info">
             <strong>Email:</strong> <c:out value="${email}"/>
         </div>
@@ -227,8 +238,8 @@
 </main>
 <footer>
     <div class="container">
-        <p><strong>F-BANK</strong> — самый лучший банк страны.</p>
-        <p>&copy; 2025 Все права защищены.</p>
+        <p><strong>F-BANK</strong> — самый лучший банк страны</p>
+        <p>&copy; 2025 Все права защищены</p>
     </div>
 </footer>
 </body>

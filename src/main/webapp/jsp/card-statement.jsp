@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Доступные карты</title>
+    <title>Выписка по карте</title>
     <style>
         * {
             margin: 0;
@@ -83,79 +83,65 @@
             justify-content: center;
             padding: 40px 20px;
         }
-        .profile {
-            max-width: 1200px;
+        .container {
+            max-width: 1000px;
             width: 100%;
         }
-        .profile h2 {
+        .container h2 {
             font-size: 28px;
             color: #616161;
             margin-bottom: 20px;
         }
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-        }
-        .cards__card {
+        .table-wrapper {
             background: linear-gradient(90deg,#f5f5f5 60%,#bdbdbd 100%);
             border: 3px solid #bdbdbd;
             border-radius: 14px;
             box-shadow: 0 2px 8px #0001;
-            padding: 20px;
-            transition: border-color 0.5s, box-shadow 0.3s;
-            position: relative;
+            overflow: hidden;
         }
-        .cards__card:hover {
-            border-color: #616161;
-            box-shadow: 0 6px 24px #0002;
-        }
-        .cards__card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            pointer-events:none;
-            opacity: 0;
-            border-radius: inherit;
-            transition: opacity .32s;
-            z-index: 1;
-        }
-        .cards__card:hover::after {
-            background: rgba(158,158,158,0.08);
-            opacity: 1;
-        }
-        .cards__card__info {
-            position: relative;
-            z-index: 2;
-        }
-        .card__image {
+        table {
             width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 12px;
+            border-collapse: collapse;
         }
-        .card__name {
-            font-size: 18px;
+        table thead {
+            background: rgba(158,158,158,0.15);
+        }
+        table th {
+            padding: 12px;
+            text-align: left;
             font-weight: bold;
             color: #424242;
-            margin-bottom: 8px;
+            border-bottom: 2px solid #bdbdbd;
         }
-        .card__description {
-            font-size: 14px;
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(158,158,158,0.1);
             color: #616161;
-            margin-bottom: 16px;
-            line-height: 1.4;
         }
-        .cards__card form {
-            position: relative;
-            z-index: 2;
+        table tr:hover {
+            background: rgba(158,158,158,0.05);
         }
-        button.grey-btn {
-            width: 100%;
+        .transaction-form {
+            display: inline;
         }
-        .grey-btn.main {
+        .transaction-form button {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 6px;
             background: rgba(255,255,255,0.9);
+            color: #222;
+            cursor: pointer;
+            font-size: 13px;
+            transition: transform 0.22s, box-shadow 0.2s;
+            box-shadow: 0 2px 6px #0002;
+        }
+        .transaction-form button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 4px 10px #0002;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
         }
         footer {
             background: linear-gradient(90deg, #757575 0%, #616161 50%, #424242 100%);
@@ -187,29 +173,42 @@
     </div>
 </header>
 <main>
-    <div class="profile">
-        <h2>Доступные карты для заказа</h2>
-        <div class="cards">
-            <c:forEach items="${requestScope.cardProducts}" var="cardProduct">
-                <div class="cards__card">
-                    <div class="cards__card__info">
-                        <img class="card__image" src="${cardProduct.cardImageLink}" alt="Card image"/>
-                        <div class="card__name">${cardProduct.cardName}</div>
-                        <div class="card__description">${cardProduct.description}</div>
-                    </div>
-                    <form action="${pageContext.request.contextPath}/order-card" method="post">
-                        <input type="hidden" name="cardProductId" value="${cardProduct.id}">
-                        <input type="hidden" name="cardName" value="${cardProduct.cardName}">
-                        <button type="submit" class="grey-btn main">Заказать карту</button>
-                    </form>
-                </div>
-            </c:forEach>
+    <div class="container">
+        <h2>Выписка по карте</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Сумма</th>
+                    <th>Описание</th>
+                    <th>Действие</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${requestScope.transactions}" var="transaction">
+                    <tr>
+                        <td><c:out value="${transaction.date}"/></td>
+                        <td><c:out value="${transaction.amount}"/></td>
+                        <td><c:out value="${transaction.description}"/></td>
+                        <td>
+                            <form action="${pageContext.request.contextPath}/transaction-document" method="post" class="transaction-form">
+                                <input type="hidden" name="transactionId" value="${transaction.id}">
+                                <button type="submit">Документ</button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </div>
+
+        <a href="javascript:history.back()" class="grey-btn secondary back-link">← Назад</a>
     </div>
 </main>
 <footer>
     <div class="container">
-        <p><strong>F-BANK</strong> — откройте новую карту уже сегодня</p>
+        <p><strong>F-BANK</strong> — управление вашими картами</p>
         <p>&copy; 2025 Все права защищены</p>
     </div>
 </footer>
