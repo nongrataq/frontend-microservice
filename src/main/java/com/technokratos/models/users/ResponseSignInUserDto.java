@@ -1,9 +1,10 @@
-package com.technokratos.models;
+package com.technokratos.models.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -14,11 +15,9 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ResponseSignInUserDto {
 
-    private UUID userId;
-
     private boolean success;
 
     private List<FieldErrorDto> errors;
 
-    private String token;
+    private UUID token;
 }

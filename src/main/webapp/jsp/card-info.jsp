@@ -185,6 +185,10 @@
                 <span><c:out value="${card.contractName}"/></span>
             </div>
             <div class="info-row">
+                <strong>CVV:</strong>
+                <span><c:out value="${card.cvv}"/></span>
+            </div>
+            <div class="info-row">
                 <strong>Статус:</strong>
                 <span><c:if test="${card.closeFlag}">Закрыта</c:if><c:if test="${!card.closeFlag}">Активна</c:if></span>
             </div>
@@ -201,21 +205,21 @@
                     <button type="submit" class="grey-btn main">Перевод</button>
                 </form>
             </c:if>
-            <c:if test="${card.openDocument != null}">
+            <c:if test="${not empty card.openDocumentId}">
                 <form action="${pageContext.request.contextPath}/document" method="post">
-                    <input type="hidden" name="documentId" value="${card.openDocument.id}">
+                    <input type="hidden" name="documentId" value="${card.openDocumentId}">
                     <button type="submit" class="grey-btn main">Док открытия</button>
                 </form>
             </c:if>
-            <c:if test="${!card.closeFlag}">
-                <form action="${pageContext.request.contextPath}/close-card" method="get">
+            <c:if test="${card.closeFlag == false}">
+                <form action="${pageContext.request.contextPath}/cards/close" method="post">
                     <input type="hidden" name="cardId" value="${card.id}">
                     <button type="submit" class="grey-btn secondary">Закрыть карту</button>
                 </form>
             </c:if>
-            <c:if test="${card.closeDocument != null}">
+            <c:if test="${not empty card.closeDocumentId}">
                 <form action="${pageContext.request.contextPath}/document" method="post">
-                    <input type="hidden" name="documentId" value="${card.closeDocument.id}">
+                    <input type="hidden" name="documentId" value="${card.closeDocumentId}">
                     <button type="submit" class="grey-btn main">Док закрытия</button>
                 </form>
             </c:if>

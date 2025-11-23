@@ -1,9 +1,10 @@
 package com.technokratos.servlets;
 
-import com.technokratos.models.cards.ApiResponse;
+import com.technokratos.models.ApiResponse;
 import com.technokratos.models.cards.CardDto;
 import com.technokratos.models.cards.CreateCardRequest;
-import com.technokratos.services.CardService;
+import com.technokratos.services.cards.CardService;
+import com.technokratos.services.cards.CardServiceImpl;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,7 +33,9 @@ public class OrderCardServlet extends HttpServlet {
 
         UUID cardProductId = UUID.fromString(req.getParameter("cardProductId"));
 
-        UUID userId = UUID.fromString((String) session.getAttribute("userId"));
+        System.out.println(cardProductId);
+
+        UUID userId = (UUID) session.getAttribute("userId");
 
         String cardName = req.getParameter("cardName");
 
@@ -44,6 +47,8 @@ public class OrderCardServlet extends HttpServlet {
                 .build();
 
         ApiResponse<CardDto> createdCard = cardService.orderCard(orderedCard);
+
+        System.out.println(createdCard.toString());
 
         //можно добавить для отображения на фронте какие то поля из createdCart или сообщение об успешном создании карты
 

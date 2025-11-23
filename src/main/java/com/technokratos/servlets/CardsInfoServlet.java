@@ -3,22 +3,18 @@ package com.technokratos.servlets;
 import com.technokratos.models.ApiResponse;
 import com.technokratos.models.cards.CardDto;
 import com.technokratos.services.cards.CardService;
-import com.technokratos.services.cards.CardServiceImpl;
-import com.technokratos.util.ServletUtil;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.UUID;
 
-@WebServlet("/profile")
-public class ProfileServlet extends HttpServlet {
-
+@WebServlet("/cards/info")
+public class CardsInfoServlet extends HttpServlet {
     private CardService cardService;
 
     @Override
@@ -26,14 +22,14 @@ public class ProfileServlet extends HttpServlet {
         cardService = (CardService) config.getServletContext().getAttribute("cardService");
     }
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
 
-        ApiResponse<List<CardDto>> userCards = cardService.getUserCards(ServletUtil.getUserId(session));
-
-        req.setAttribute("cards", userCards.getData());
-        req.getRequestDispatcher("/jsp/profile.jsp").forward(req, resp);
+        String cardId = req.getParameter("id");
+        System.out.println(cardId);
+        ApiResponse<CardDto> cardInfo = cardService.getCardInfo(UUID.fromString(cardId));
+        req.setAttribute("card", cardInfo.getData());
+        System.out.println(cardInfo.getData());
+        req.getRequestDispatcher("/jsp/card-info.jsp").forward(req, resp);
     }
 }

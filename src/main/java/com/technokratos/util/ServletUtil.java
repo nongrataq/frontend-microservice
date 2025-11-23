@@ -9,7 +9,7 @@ import java.util.UUID;
 public class ServletUtil {
 
     public UUID getUserId(HttpSession session) {
-        return UUID.fromString((String) session.getAttribute("userId"));
+        return (UUID) session.getAttribute("userId");
     }
 
 }

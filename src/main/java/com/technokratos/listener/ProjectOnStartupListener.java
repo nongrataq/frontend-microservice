@@ -1,9 +1,11 @@
 package com.technokratos.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.technokratos.services.SignInService;
-import com.technokratos.services.SignUpService;
-import com.technokratos.services.TokenService;
+import com.technokratos.services.*;
+import com.technokratos.services.cards.CardService;
+import com.technokratos.services.cards.CardServiceImpl;
+import com.technokratos.services.cards.MockCardServiceImpl;
+import com.technokratos.services.user_data.*;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -22,13 +24,21 @@ public class ProjectOnStartupListener implements ServletContextListener {
         client = new OkHttpClient();
         ObjectMapper mapper = new ObjectMapper();
 
-        SignUpService signUpService = new SignUpService(client, mapper);
-        SignInService signInService = new SignInService(client, mapper);
-        TokenService tokenService = new TokenService(client, mapper);
+        AuthService authService = new AuthServiceImpl(mapper, client);
+        CardService cardService = new MockCardServiceImpl();
+        TransferService transferService = new MockTransferService();
+        GetBalanceService getBalanceService = new MockGetBalanceService();
+        ContractService contractService = new MockContractService();
+        UserRestrictionsService userRestrictionsService = new MockUserRestrictionsService();
 
-        servletContext.setAttribute("signUpService", signUpService);
-        servletContext.setAttribute("signInService", signInService);
-        servletContext.setAttribute("tokenService", tokenService);
+
+
+        servletContext.setAttribute("transferService", transferService);
+        servletContext.setAttribute("cardService", cardService );
+        servletContext.setAttribute("authService", authService);
+        servletContext.setAttribute("getBalanceService", getBalanceService);
+        servletContext.setAttribute("contractService", contractService);
+        servletContext.setAttribute("userRestrictionsService", userRestrictionsService);
 
     }
 

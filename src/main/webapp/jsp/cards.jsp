@@ -200,6 +200,7 @@
                     <form action="${pageContext.request.contextPath}/order-card" method="post">
                         <input type="hidden" name="cardProductId" value="${cardProduct.id}">
                         <input type="hidden" name="cardName" value="${cardProduct.cardName}">
+                        <input type="hidden" name="cardImageLink" value="${cardProduct.cardImageLink}">
                         <button type="submit" class="grey-btn main">Заказать карту</button>
                     </form>
                 </div>

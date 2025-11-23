@@ -1,4 +1,4 @@
-package com.technokratos.models;
+package com.technokratos.models.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestSignUpUserDto {
+public class RequestSignInUserDto {
+
     private String phone;
-    private String fio;
+
     private String password;
 }

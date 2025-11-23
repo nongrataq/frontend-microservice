@@ -1,9 +1,9 @@
 package com.technokratos.servlets;
 
-import com.technokratos.models.FieldErrorDto;
-import com.technokratos.models.RequestSignUpUserDto;
-import com.technokratos.models.ResponseSignUpUserDto;
-import com.technokratos.services.SignUpService;
+import com.technokratos.models.users.FieldErrorDto;
+import com.technokratos.models.users.RequestSignUpUserDto;
+import com.technokratos.models.users.ResponseUserDto;
+import com.technokratos.services.user_data.AuthService;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,11 +18,11 @@ import java.util.List;
 @WebServlet("/sign-up")
 public class SignUpServlet extends HttpServlet {
 
-    private SignUpService signUpService;
+    private AuthService authService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        signUpService = (SignUpService) config.getServletContext().getAttribute("signUpService");
+        authService = (AuthService) config.getServletContext().getAttribute("authService");
     }
 
     @Override
@@ -42,19 +42,17 @@ public class SignUpServlet extends HttpServlet {
         String phone = req.getParameter("phone");
         String password = req.getParameter("password");
 
-        ResponseSignUpUserDto responseSignUpUserDto = signUpService.signUp(RequestSignUpUserDto.builder()
+        ResponseUserDto response = authService.signUp(RequestSignUpUserDto.builder()
                 .fio(fio)
                 .phone(phone)
                 .password(password)
                 .build()
         );
 
-        System.out.println(responseSignUpUserDto);
-
-        if (responseSignUpUserDto.isSuccess()) {
+        if (response.isSuccess()) {
             resp.sendRedirect(req.getContextPath() + "/sign-in");
         } else {
-            session.setAttribute("errors", responseSignUpUserDto.getErrors());
+            session.setAttribute("errors", response.getErrors());
             resp.sendRedirect(req.getContextPath() + "/sign-up");
         }
     }
