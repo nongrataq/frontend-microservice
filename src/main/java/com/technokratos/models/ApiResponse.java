@@ -1,4 +1,4 @@
-package com.technokratos.models.cards;
+package com.technokratos.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

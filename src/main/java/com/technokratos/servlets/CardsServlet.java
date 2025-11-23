@@ -1,8 +1,9 @@
 package com.technokratos.servlets;
 
-import com.technokratos.models.cards.ApiResponse;
+import com.technokratos.models.ApiResponse;
 import com.technokratos.models.cards.CardProductDto;
-import com.technokratos.services.CardService;
+import com.technokratos.services.cards.CardService;
+import com.technokratos.services.cards.CardServiceImpl;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

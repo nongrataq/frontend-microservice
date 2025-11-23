@@ -1,4 +1,4 @@
-package com.technokratos.models;
+package com.technokratos.models.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseSignUpUserDto {
-
-    private boolean success;
-
-    private List<FieldErrorDto> errors;
-
+public class ResponseUserDto {
+    private UserDto user;
+    boolean success;
+    List<FieldErrorDto> errors;
 }

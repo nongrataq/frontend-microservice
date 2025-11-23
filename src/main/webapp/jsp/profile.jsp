@@ -217,7 +217,7 @@
             <a href="${pageContext.request.contextPath}/cards" class="grey-btn main order-button">+ Заказать новую карту</a>
         </div>
         <div class="info">
-            <strong>Email:</strong> <c:out value="${email}"/>
+            <strong>ID:</strong> <c:out value="${userId}"/>
         </div>
         <div class="cards">
             <c:forEach items="${requestScope.cards}" var="card">
@@ -225,12 +225,11 @@
                     <div class="cards__card__info">
                         <img class="card__image" src="${card.cardImageLink}" alt="Card image"/>
                         <div class="card__name">${card.cardName}</div>
-                        <div class="card__description">${card.description}</div>
+                        <div class="card__description">${card.plasticName}</div>
                     </div>
-                    <form action="${pageContext.request.contextPath}/info" method="post">
-                        <input type="hidden" name="cardId" value="${card.id}">
-                        <button type="submit" class="grey-btn main">Информация по карте</button>
-                    </form>
+                    <a href="${pageContext.request.contextPath}/cards/info?id=${card.id}">
+                        Информация по карте
+                    </a>
                 </div>
             </c:forEach>
         </div>

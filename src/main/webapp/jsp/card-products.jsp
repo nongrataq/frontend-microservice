@@ -198,6 +198,7 @@
                         <div class="card__description">${cardProduct.description}</div>
                     </div>
                     <form action="${pageContext.request.contextPath}/confirm-card-opening" method="post">
+                        <input type="hidden" name="cardImage" value="${cardProduct.cardImageLink}">
                         <input type="hidden" name="cardProductId" value="${cardProduct.id}">
                         <input type="hidden" name="cardName" value="${cardProduct.cardName}">
                         <button type="submit" class="grey-btn main">Заказать</button>

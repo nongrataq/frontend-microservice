@@ -263,7 +263,7 @@
             <div class="errors">
                 <c:forEach items="${requestScope.errors}" var="error">
                     <div class="error-item">
-                        <strong>${error.field}:</strong> ${error.message}
+                        <strong>${error.type}:</strong> ${error.message}
                     </div>
                 </c:forEach>
             </div>

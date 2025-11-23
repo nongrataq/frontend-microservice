@@ -14,6 +14,7 @@ import java.util.UUID;
 public class CreateCardRequest {
     private UUID userId;
     private UUID cardProductId;
+    private String cardImageLink;
     private String contractName;
     private String cardName;
 }

@@ -1,4 +1,4 @@
-package com.technokratos.models;
+package com.technokratos.models.restrictions;
 
 public enum BlockType {
     PARTICULAR,

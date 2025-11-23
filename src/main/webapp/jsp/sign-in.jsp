@@ -237,6 +237,7 @@
             <a href="${pageContext.request.contextPath}/">F-BANK</a>
         </div>
         <div class="header__links">
+            <
             <a class="grey-btn main" href="${pageContext.request.contextPath}/">Главная</a>
             <a class="grey-btn secondary" href="${pageContext.request.contextPath}/logout">Выход</a>
         </div>
@@ -249,7 +250,7 @@
             <div class="errors">
                 <c:forEach items="${requestScope.errors}" var="error">
                     <div class="error-item">
-                        <strong>${error.field}:</strong> ${error.message}
+                        <strong>${error.type}:</strong> ${error.message}
                     </div>
                 </c:forEach>
             </div>
